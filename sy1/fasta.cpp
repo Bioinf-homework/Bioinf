@@ -110,7 +110,7 @@ fasta::~fasta()
 {
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	string s;
 	s = "HARFYAAQIVL";
@@ -122,7 +122,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	x.match(t);
 
-	system("pause");
+	// system("pause");
 	
 	return 0;
 }

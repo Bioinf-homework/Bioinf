@@ -11,7 +11,7 @@ public:
 		n = word1.length();
 		m = word2.length();
 
-		vector<vector<int>> Matrix(m+1, vector<int>(n+1, 0));
+		vector< vector<int> > Matrix(m+1, vector<int>(n+1, 0));
 
 		//边界设置
 
@@ -36,14 +36,14 @@ public:
 				}
 				else
 				{
-					Matrix[i][j] = __min(Matrix[i - 1][j - 1], __min(Matrix[i - 1][j], Matrix[i][j - 1])) + 1;
+					Matrix[i][j] = min(Matrix[i - 1][j - 1], min(Matrix[i - 1][j], Matrix[i][j - 1])) + 1;
 				}
 			}
 		}
 		//GetMatrix(Matrix);
 		return Matrix[m][n];
 	};
-	void GetMatrix(vector<vector<int>> Matrix){
+	void GetMatrix(vector<vector <int> > Matrix){
 		for (int i = 0; i < Matrix.size(); i++)
 		{
 			for (int j = 0; j < Matrix[0].size(); j++)
@@ -57,11 +57,11 @@ public:
 };
 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	Solution s1;
-	cout << s1.minDistance("AACDA","ADF");
+	cout << s1.minDistance("AACDA","ADF")<<endl;
 
-	system("pause");
+	// system("pause");
 	return 0;
 }
