@@ -20,7 +20,7 @@ class Panel1(wx.Panel):
               size=wx.Size(24, 14), style=0)
         self.dataText.Enable(True)
 
-        self.iText = wx.StaticText(id=wxID_PANEL1ITEXT, label=u'i',
+        self.iText = wx.StaticText(id=wxID_PANEL1ITEXT, label=u'I',
               name=u'iText', parent=self, pos=wx.Point(56, 96), size=wx.Size(32,
               14), style=0)
 
@@ -32,7 +32,7 @@ class Panel1(wx.Panel):
               parent=self, pos=wx.Point(112, 96), size=wx.Size(100, 22),
               style=0, value=u'')
 
-        self.jText = wx.StaticText(id=wxID_PANEL1JTEXT, label=u'j',
+        self.jText = wx.StaticText(id=wxID_PANEL1JTEXT, label=u'J',
               name=u'jText', parent=self, pos=wx.Point(56, 136),
               size=wx.Size(24, 14), style=0)
 
@@ -70,12 +70,31 @@ class Panel1(wx.Panel):
 
     def OnStart_btnButton(self, event):
         # print('ss')
-        self.result.SetValue(self.result.GetValue()+"ss")
-        event.Skip()
+        i = self.i_input.GetValue()
+        j = self.j_input.GetValue()
+        if i == "":
+          i = "-1"
+        if j == "":
+          j = "-1"
+        # print(i)
+        # print(j)
+        import ctypes
+        so = ctypes.cdll.LoadLibrary
+        lib = so("./libk.so")
+
+        rst = lib.test(int(i),int(j))
+
+        # print(rst)
+        size = -1
+        rst = ctypes.string_at(rst, size)
+        # print(rst.decode('utf-8'))
+        self.result.SetValue(rst)
+
 
     def OnLoad_btnButton(self, event):
-        print('ll')
-        event.Skip()
+        f = open("data.txt","r")
+        x = f.readline()
+        self.data_input.SetValue(x)
 
 class DemoFrame(wx.Frame):
     def __init__(self):

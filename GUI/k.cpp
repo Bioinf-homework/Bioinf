@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+#include <string.h>
 using namespace std;
 
 string Readaline(char* filename)
@@ -55,14 +55,30 @@ string K(int from,int to)
 	}
 	return sub;
 };
-int main()
-{
-// asdfghjkwertyuio
 
-cout << K(1,3) <<endl;
-cout << K(5,3) <<endl;
-cout << K(-1,200) <<endl;
- cout << K(-1,3)<<endl;
-    cout << K(3,-1)<<endl;
-    return 0;
+const char* hello(const char* name)
+{
+	cout << "hello" << name << endl;
 }
+
+extern "C" {  
+	void he(const char* name)
+	{
+		hello(name);
+	}
+    char * test(int i,int j)
+    {
+    	string x = K(i,j);
+    	// const char *c=x.data();
+
+	char* c;
+	const int len = x.length();
+	c = new char[len+1];
+	strcpy(c,x.c_str());
+
+    	// cout << "string is" <<x <<endl;
+    	// cout  << "char * is"  << c <<endl;
+    	return c;
+    }
+}  
+// g++ -o libk.so -shared -fPIC k.cpp -w
