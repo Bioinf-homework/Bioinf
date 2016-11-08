@@ -2,6 +2,8 @@
 import  wx
 
 import Panel1
+import Panel2
+import Panel3
 #----------------------------------------------------------------------------
 
 TitleTexts = [ u"K操作",
@@ -20,11 +22,11 @@ class TestCB(wx.Choicebook):
         count = 1
         for txt in TitleTexts:
             if count == 1:
-                # win = wx.Panel(self)
                 win = Panel1.Panel1(self)
-                # st = wx.StaticText(win, -1,
-                #           "wx.Choicebook is yet another way to switch between 'page' windows",
-                #           (10, 10))
+            elif count == 2:
+                win = Panel2.Panel2(self)
+            elif count == 3 or count == 4:
+                win = Panel3.Panel3(self)
             else:
                 win = wx.Panel(self)
                 st = wx.StaticText(win, -1, "Page: %d" % count, (10,10))
