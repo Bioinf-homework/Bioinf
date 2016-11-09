@@ -1,7 +1,14 @@
+// fasta.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+//
+
+#include "stdafx.h"
 
 #include <iostream>
-#include <string.h>
+#include <fstream>
+#include <string>
+//#include <string.h>
 #include <vector>
+
 
 using namespace std;
 
@@ -9,10 +16,10 @@ class fasta
 {
 public:
 	fasta(string s);
-	~fasta();
 	int isset(char x);
 	void GetFindlist();
 	int match(string t);
+	int maxofst(string t);
 	int n;
 	vector<char> key;
 	vector< vector<int> > value;
@@ -33,12 +40,18 @@ fasta::fasta(string s)
 		}
 		else
 		{
-			//æ–°çš„key
+			//ĞÂµÄkey
 			key.push_back(s[i]);
 			vector<int> start_index(1,i);
 			value.push_back(start_index);
 		}
 	}
+
+	// Çå¿ÕÊä³öÎÄ¼ş
+	ofstream file;
+	file.open("file.txt");
+	file.clear();
+	file.close();
 }
 
 int fasta::isset(char x)
@@ -69,61 +82,133 @@ void fasta::GetFindlist()
 	}
 }
 
+int fasta::maxofst(string t)
+{
+	if (t.length() < n)
+	{
+		return n;
+	}
+	else
+	{
+		return t.length();
+	}
+}
+
 int fasta::match(string t)
 {
-	vector<int > result(2*n);
+	//int arrsize = maxofst(t);
+	//cout << "Î»ÒÆ±í³¤£º" << arrsize << endl;
+	vector<int > result(t.length() + n);
 	for (int i = 0; i < t.length(); i++)
 	{
 		int index = isset(t[i]);
+		//cout << t[i];
+		// ×ÖÄ¸²»´æÔÚ -1
 		if (index == -1)
 		{
 			continue;
 		}
 		else
 		{
-			// åœ¨æŸ¥æ‰¾è¡¨ä¸­æœ‰çš„å€¼ï¼Œè®¡ç®—è·ç¦»ã€‚
-			vector<int>::iterator t;
-
-			for (t = value[index].begin(); t != value[index].end(); t++)
+			// ÔÚ²éÕÒ±íÖĞÓĞµÄÖµ£¬¼ÆËã¾àÀë¡£
+			vector<int>::iterator t1;
+			for (t1 = value[index].begin(); t1 != value[index].end(); t1++)
 			{
-				//cout << *t << " ";
-				int r = *t - i;
-				result[n+r]++;
-				//cout << r;
+				int r = *t1 - i;
+				result[t.length() + r]++;
 			}
-			
-			//value[index].begin();
-			//result.push_back()
 		}
 	}
 
 	vector<int>::iterator t2;
-
+	int max = 0, maxindex;
+	int index = t.length();
+	index = -index-1;
 	for (t2 = result.begin(); t2 != result.end(); t2++)
 	{
-		cout << *t2 << " ";
+		//cout << *t2 << " ";
+		index++;
+		if (*t2 > max)
+		{
+			maxindex = index;
+			max = *t2;
+		}
+
 	}
+
+	ofstream file;
+	// ×·¼ÓĞ´
+	file.open("file.txt", ios::app);
+
+	//file << "Hello file/n" << 75;
+	file << "×î´óÎ»ÒÆÁ¿" << "\t" << maxindex << "\t" << max << endl;
+
+	file.close();
+
+	cout << "×î´óÎ»ÒÆÁ¿" << "\t" << maxindex << "\t" << max << endl;
 	return 0;
 }
 
-fasta::~fasta()
+vector<string> Readlines(char* filename)
 {
-}
+	vector<string> data;
+	ifstream rfp;
+	rfp.open(filename);
+	while (!rfp.eof())
+	{
+		string tmp;
+		rfp >> tmp;
+		data.push_back(tmp);
+		//cout << data <<endl;
+	}
 
-int main()
+	rfp.close();
+	return data;
+};
+
+string Readaline(char* filename)
+{
+	string data;
+	ifstream rfp;
+	rfp.open(filename);
+	rfp >> data;
+	//cout << data << endl;
+	rfp.close();
+	return data;
+};
+
+int _tmain(int argc, _TCHAR* argv[])
 {
 	string s;
-	s = "HARFYAAQIVL";
+	s = Readaline("s.txt");
+	//s = "HARFYAAQIVL";
+	//cout << s;
+
 	//string t = "A";
-	string t = "VDMAAQIA";
+	//string t = Readaline("data.txt");
 	
 	fasta x(s);
 	x.GetFindlist();
 
-	x.match(t);
+	//x.match(t);
 
-	// system("pause");
 	
+
+	vector<string> data;
+
+	data = Readlines("data.txt");
+
+	//
+	vector<string>::iterator t2;
+
+	for (t2 = data.begin(); t2 != data.end(); t2++)
+	{
+		//cout << *t2 << endl;
+		x.match(*t2);
+		cout << endl;
+	}
+
+	system("pause");
 	return 0;
 }
 
