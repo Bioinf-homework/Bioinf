@@ -10,14 +10,16 @@
 
 1. K操作，fasta算法（ok
 2. 编辑距离（ok
-3. NW，SW算法
+3. NW，SW算法（ok
 4. ID3算法
 
 用VS2013编译通过。。比如说`__min`比较坑。。
 
 GUI使用wxPython，特地写了一篇博文 [wxPython](http://tmn07.com/hexo/2016/11/07/wx) 欢迎来踩
 
-现在还未完成大概长这样![](./GUI/pre.png)
+现在还未完成大概长这样
+![](./GUI/pre1.png)
+![](./GUI/pre2.png)
 
 ## 作业
 

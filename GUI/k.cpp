@@ -20,7 +20,7 @@ string K(int from,int to)
 	string sub;
 	try
 	{
-        if(from > len || to > len || from < -2|| to <-2)
+        if(from > len || to > len || from < -1|| to <-1)
         {
             sub = "mdzz";
         }

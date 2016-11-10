@@ -1,18 +1,19 @@
 # coding=utf-8
-import  wx
+import wx
 
 import Panel1
 import Panel2
 import Panel3
-#----------------------------------------------------------------------------
 
-TitleTexts = [ u"K操作",
+# ----------------------------------------------------------------------------
+
+TitleTexts = [u"K操作",
               u"Fasta算法",
               u"编辑距离",
               u"NW&SW算法",
               u"ID3决策树"
               ]
-          
+
 
 class TestCB(wx.Choicebook):
     def __init__(self, parent):
@@ -29,14 +30,13 @@ class TestCB(wx.Choicebook):
                 win = Panel3.Panel3(self)
             else:
                 win = wx.Panel(self)
-                st = wx.StaticText(win, -1, "Page: %d" % count, (10,10))
+                st = wx.StaticText(win, -1, "Page: %d" % count, (10, 10))
             count += 1
-            
+
             self.AddPage(win, txt)
 
-        # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGED, self.OnPageChanged)
-        # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGING, self.OnPageChanging)
-
+            # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGED, self.OnPageChanged)
+            # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGING, self.OnPageChanging)
 
     def OnPageChanged(self, event):
         old = event.GetOldSelection()
@@ -57,26 +57,26 @@ class DemoFrame(wx.Frame):
     Frame that holds all other widgets
     """
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def __init__(self):
-        """Constructor"""        
-        wx.Frame.__init__(self, None, wx.ID_ANY, 
+        """Constructor"""
+        wx.Frame.__init__(self, None, wx.ID_ANY,
                           u" 生物信息学I 实验",
-                          size=(650,640))
+                          size=(650, 640))
 
         panel = wx.Panel(self)
-        
+
         notebook = TestCB(panel)
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(notebook, 1, wx.ALL|wx.EXPAND, 5)
+        sizer.Add(notebook, 1, wx.ALL | wx.EXPAND, 5)
         panel.SetSizer(sizer)
         self.Layout()
-        
+
         self.Show()
-        
-#----------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------
 if __name__ == "__main__":
     app = wx.PySimpleApp()
     frame = DemoFrame()
     app.MainLoop()
-    

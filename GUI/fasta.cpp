@@ -140,11 +140,11 @@ int fasta::match(string t)
 	file.open("file.txt", ios::app);
 
 	//file << "Hello file/n" << 75;
-	file << "最大位移量" << "\t" << maxindex << "\t" << max << endl;
+	file << "最大匹配位移" << "\t" << maxindex << "\t"<<"次数" << max << endl;
 
 	file.close();
 
-	cout << "最大位移量" << "\t" << maxindex << "\t" << max << endl;
+	cout << "最大匹配位移" << "\t" << maxindex << "\t"<<"次数" << max << endl;
 	return 0;
 }
 

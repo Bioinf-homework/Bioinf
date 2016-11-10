@@ -1,7 +1,7 @@
-// fasta.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// fasta.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
-#include "stdafx.h"
+// #include "stdafx.h"
 
 #include <iostream>
 #include <fstream>
@@ -40,14 +40,14 @@ fasta::fasta(string s)
 		}
 		else
 		{
-			//ĞÂµÄkey
+			//æ–°çš„key
 			key.push_back(s[i]);
 			vector<int> start_index(1,i);
 			value.push_back(start_index);
 		}
 	}
 
-	// Çå¿ÕÊä³öÎÄ¼ş
+	// æ¸…ç©ºè¾“å‡ºæ–‡ä»¶
 	ofstream file;
 	file.open("file.txt");
 	file.clear();
@@ -97,20 +97,20 @@ int fasta::maxofst(string t)
 int fasta::match(string t)
 {
 	//int arrsize = maxofst(t);
-	//cout << "Î»ÒÆ±í³¤£º" << arrsize << endl;
+	//cout << "ä½ç§»è¡¨é•¿ï¼š" << arrsize << endl;
 	vector<int > result(t.length() + n);
 	for (int i = 0; i < t.length(); i++)
 	{
 		int index = isset(t[i]);
 		//cout << t[i];
-		// ×ÖÄ¸²»´æÔÚ -1
+		// å­—æ¯ä¸å­˜åœ¨ -1
 		if (index == -1)
 		{
 			continue;
 		}
 		else
 		{
-			// ÔÚ²éÕÒ±íÖĞÓĞµÄÖµ£¬¼ÆËã¾àÀë¡£
+			// åœ¨æŸ¥æ‰¾è¡¨ä¸­æœ‰çš„å€¼ï¼Œè®¡ç®—è·ç¦»ã€‚
 			vector<int>::iterator t1;
 			for (t1 = value[index].begin(); t1 != value[index].end(); t1++)
 			{
@@ -137,15 +137,15 @@ int fasta::match(string t)
 	}
 
 	ofstream file;
-	// ×·¼ÓĞ´
+	// è¿½åŠ å†™
 	file.open("file.txt", ios::app);
 
 	//file << "Hello file/n" << 75;
-	file << "×î´óÎ»ÒÆÁ¿" << "\t" << maxindex << "\t" << max << endl;
+	file << "æœ€å¤§åŒ¹é…ä½ç§»" << "\t" << maxindex << "\t"<<"æ¬¡æ•°" << max << endl;
 
 	file.close();
 
-	cout << "×î´óÎ»ÒÆÁ¿" << "\t" << maxindex << "\t" << max << endl;
+	cout << "æœ€å¤§åŒ¹é…ä½ç§»" << "\t" << maxindex << "\t"<<"æ¬¡æ•°" << max << endl;
 	return 0;
 }
 
@@ -177,7 +177,7 @@ string Readaline(char* filename)
 	return data;
 };
 
-int _tmain(int argc, _TCHAR* argv[])
+int main()
 {
 	string s;
 	s = Readaline("s.txt");
@@ -208,7 +208,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << endl;
 	}
 
-	system("pause");
+	// system("pause");
 	return 0;
 }
 

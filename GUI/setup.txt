@@ -1,0 +1,3 @@
+C++部分编译指令：
+g++ -o libk.so -shared -fPIC k.cpp -w
+g++ fasta.cpp -o fa -w
