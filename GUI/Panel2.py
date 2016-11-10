@@ -52,11 +52,15 @@ class Panel2(wx.Panel):
         self.load_button.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.NORMAL,
               False, u'@Microsoft YaHei UI'))
 
+        self.load_button.Bind(wx.EVT_BUTTON, self.loadtxt,
+              id=wxID_PANEL2LOAD_BUTTON)
+
         self.start_button = wx.Button(id=wxID_PANEL2START_BUTTON,
               label=u'Start', name=u'start_button', parent=self,
               pos=wx.Point(512, 40), size=wx.Size(72, 26), style=0)
         self.start_button.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.NORMAL,
               False, u'Arial'))
+        self.start_button.Bind(wx.EVT_BUTTON, self.start,id=wxID_PANEL2START_BUTTON)
 
         self.t_input = wx.TextCtrl(id=wxID_PANEL2T_INPUT, name=u't_input',
               parent=self, pos=wx.Point(168, 320), size=wx.Size(424, 216),
@@ -81,6 +85,28 @@ class Panel2(wx.Panel):
               pos=wx.Point(168, 299), size=wx.Size(56, 18), style=0)
         self.staticText3.SetFont(wx.Font(12, wx.SWISS, wx.NORMAL, wx.NORMAL,
               False, u''))
+
+    def loadtxt(self,evt):
+        fs = open("s.txt")
+        s = fs.read()
+        self.s_input.SetValue(s)
+
+
+        f = open("data.txt")
+        ts = f.read()
+        self.textCtrl1.SetValue(ts)
+        # print(ts)
+        pass
+    def start(self,evt):
+        import os
+        os.popen("./fa")
+        f = open("file.txt")
+        re = f.read()
+        self.t_input.SetValue(re)
+        ff = open("findlist.txt")
+        ref = ff.read()
+        self.textCtrl2.SetValue(ref)
+        pass
 
 
 class DemoFrame(wx.Frame):
