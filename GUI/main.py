@@ -62,7 +62,7 @@ class DemoFrame(wx.Frame):
         """Constructor"""        
         wx.Frame.__init__(self, None, wx.ID_ANY, 
                           u" 生物信息学I 实验",
-                          size=(800,600))
+                          size=(650,640))
 
         panel = wx.Panel(self)
         
