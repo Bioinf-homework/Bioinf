@@ -4,7 +4,11 @@
 //#include <string.h>
 #include <vector>
 
+#include <unistd.h>
+#include <string.h> 　
+#include <limits.h>
 
+#define MAX_SIZE (PATH_MAX+1)
 using namespace std;
 
 class fasta
@@ -41,10 +45,29 @@ fasta::fasta(string s)
 			value.push_back(start_index);
 		}
 	}
-
+	char buf[MAX_SIZE];
+	//获取当前程序绝对路径
+	int cnt = readlink("/proc/self/exe", buf, MAX_SIZE);
+	if (cnt < 0 || cnt >= MAX_SIZE)
+	{
+	    printf("***Error***\n");
+	
+	}
+	//获取当前目录绝对路径，即去掉程序名
+	int i;
+	for (i = cnt; i >=0; --i)
+	{
+	    if (buf[i] == '/')
+	    {
+	        buf[i+1] = '\0';
+	        break;
+	    }
+	}
+	// printf("current absolute path:%s\n", buf);
+	strcat(buf,"/file.txt");
 	// 清空输出文件
 	ofstream file;
-	file.open("file.txt");
+	file.open(buf);
 	file.clear();
 	file.close();
 }
@@ -64,8 +87,28 @@ int fasta::isset(char x)
 }
 void fasta::GetFindlist()
 {
+	char buf[MAX_SIZE];
+	//获取当前程序绝对路径
+	int cnt = readlink("/proc/self/exe", buf, MAX_SIZE);
+	if (cnt < 0 || cnt >= MAX_SIZE)
+	{
+	    printf("***Error***\n");
+	
+	}
+	//获取当前目录绝对路径，即去掉程序名
+	int i;
+	for (i = cnt; i >=0; --i)
+	{
+	    if (buf[i] == '/')
+	    {
+	        buf[i+1] = '\0';
+	        break;
+	    }
+	}
+	// printf("current absolute path:%s\n", buf);
+	strcat(buf,"/findlist.txt");
 	ofstream file;
-	file.open("findlist.txt");
+	file.open(buf);
 	file.clear();
 
 	vector<char>::iterator t;
@@ -135,9 +178,31 @@ int fasta::match(string t)
 
 	}
 
+	char buf[MAX_SIZE];
+	//获取当前程序绝对路径
+	int cnt = readlink("/proc/self/exe", buf, MAX_SIZE);
+	if (cnt < 0 || cnt >= MAX_SIZE)
+	{
+	    printf("***Error***\n");
+	
+	}
+	//获取当前目录绝对路径，即去掉程序名
+	int i;
+	for (i = cnt; i >=0; --i)
+	{
+	    if (buf[i] == '/')
+	    {
+	        buf[i+1] = '\0';
+	        break;
+	    }
+	}
+	// printf("current absolute path:%s\n", buf);
+	// cout << buf << endl;
+
 	ofstream file;
 	// 追加写
-	file.open("file.txt", ios::app);
+	strcat(buf,"/file.txt");
+	file.open(buf, ios::app);
 
 	//file << "Hello file/n" << 75;
 	file << "最大匹配位移" << "\t" << maxindex << "\t"<<"次数" << max << endl;
@@ -150,9 +215,32 @@ int fasta::match(string t)
 
 vector<string> Readlines(char* filename)
 {
+	char buf[MAX_SIZE];
+	//获取当前程序绝对路径
+	int cnt = readlink("/proc/self/exe", buf, MAX_SIZE);
+	if (cnt < 0 || cnt >= MAX_SIZE)
+	{
+	    printf("***Error***\n");
+	
+	}
+	//获取当前目录绝对路径，即去掉程序名
+	int i;
+	for (i = cnt; i >=0; --i)
+	{
+	    if (buf[i] == '/')
+	    {
+	        buf[i+1] = '\0';
+	        break;
+	    }
+	}
+	// printf("current absolute path:%s\n", buf);
+	strcat(buf,filename);
+	cout << buf << endl;
+
 	vector<string> data;
 	ifstream rfp;
-	rfp.open(filename);
+	
+	rfp.open(buf);
 	while (!rfp.eof())
 	{
 		string tmp;
@@ -167,9 +255,32 @@ vector<string> Readlines(char* filename)
 
 string Readaline(char* filename)
 {
+	char buf[MAX_SIZE];
+	//获取当前程序绝对路径
+	int cnt = readlink("/proc/self/exe", buf, MAX_SIZE);
+	if (cnt < 0 || cnt >= MAX_SIZE)
+	{
+	    printf("***Error***\n");
+	
+	}
+	//获取当前目录绝对路径，即去掉程序名
+	int i;
+	for (i = cnt; i >=0; --i)
+	{
+	    if (buf[i] == '/')
+	    {
+	        buf[i+1] = '\0';
+	        break;
+	    }
+	}
+	// printf("current absolute path:%s\n", buf);
+	strcat(buf,filename);
+	cout << buf << endl;
+
 	string data;
 	ifstream rfp;
-	rfp.open(filename);
+	
+	rfp.open(buf);
 	rfp >> data;
 	//cout << data << endl;
 	rfp.close();
@@ -178,8 +289,10 @@ string Readaline(char* filename)
 
 int main()
 {
+
 	string s;
 	s = Readaline("s.txt");
+	// cout << s;
 
 	fasta x(s);
 	x.GetFindlist();

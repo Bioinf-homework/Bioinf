@@ -2,6 +2,11 @@
 
 import wx
 
+import os
+
+ddir = os.path.split(os.path.realpath(__file__))[0]
+
+# print(ddir)
 [wxID_PANEL3, wxID_PANEL3LOAD_BUTTON, wxID_PANEL3RESULT_TEXT, 
  wxID_PANEL3START_BUTTON, wxID_PANEL3STATICBOX1, wxID_PANEL3S_INPUT, 
  wxID_PANEL3S_TEXT, wxID_PANEL3T_INPUT, wxID_PANEL3T_TEXT, 

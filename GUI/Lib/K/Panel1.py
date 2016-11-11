@@ -7,6 +7,11 @@ import wx
  wxID_PANEL1LOAD_BTN, wxID_PANEL1RESULTBOX, wxID_PANEL1START_BTN, wxID_PANEL1RESULT,
  ] = [wx.NewId() for _init_ctrls in range(12)]
 
+import os
+
+ddir = os.path.split(os.path.realpath(__file__))[0]
+
+# print(ddir)
 
 class Panel1(wx.Panel):
     def __init__(self, prnt):
@@ -97,7 +102,7 @@ class Panel1(wx.Panel):
             # print(j)
             import ctypes
             so = ctypes.cdll.LoadLibrary
-            lib = so("./libk.so")
+            lib = so(ddir+"/libk.so")
             rst = lib.test(int(i), int(j))
 
             # print(rst)
@@ -110,9 +115,9 @@ class Panel1(wx.Panel):
             print("error")
 
     def OnLoad_btnButton(self, event):
-        f = open("data.txt", "r")
+        f = open(ddir+"/data.txt", "r")
         x = f.readline()
-        self.data_input.SetValue(x[0:-1])
+        self.data_input.SetValue(x)
 
 
 class DemoFrame(wx.Frame):

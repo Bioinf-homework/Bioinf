@@ -8,6 +8,9 @@ import wx
  wxID_PANEL2TEXTCTRL1, wxID_PANEL2TEXTCTRL2, wxID_PANEL2T_INPUT,
  ] = [wx.NewId() for _init_ctrls in range(12)]
 
+import os
+
+ddir = os.path.split(os.path.realpath(__file__))[0]
 
 class Panel2(wx.Panel):
     def __init__(self, prnt):
@@ -89,11 +92,11 @@ class Panel2(wx.Panel):
                                          False, u''))
 
     def loadtxt(self, evt):
-        fs = open("s.txt")
+        fs = open(ddir+"/s.txt")
         s = fs.read()
         self.s_input.SetValue(s)
 
-        f = open("data.txt")
+        f = open(ddir+"/data.txt")
         ts = f.read()
         self.textCtrl1.SetValue(ts)
         # print(ts)
@@ -101,11 +104,11 @@ class Panel2(wx.Panel):
 
     def start(self, evt):
         import os
-        os.popen("./fa")
-        f = open("file.txt")
+        os.popen(ddir+"/fa")
+        f = open(ddir+"/file.txt")
         re = f.read()
         self.t_input.SetValue(re)
-        ff = open("findlist.txt")
+        ff = open(ddir+"/findlist.txt")
         ref = ff.read()
         self.textCtrl2.SetValue(ref)
         pass

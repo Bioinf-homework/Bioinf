@@ -1,9 +1,7 @@
 # coding=utf-8
 import wx
 
-import Panel1
-import Panel2
-import Panel3
+from Lib import *
 
 # ----------------------------------------------------------------------------
 
@@ -23,9 +21,9 @@ class TestCB(wx.Choicebook):
         count = 1
         for txt in TitleTexts:
             if count == 1:
-                win = Panel1.Panel1(self)
+                win = K.Panel1(self)
             elif count == 2:
-                win = Panel2.Panel2(self)
+                win = Fasta.Panel2(self)
             elif count == 3 or count == 4:
                 win = Panel3.Panel3(self)
             else:

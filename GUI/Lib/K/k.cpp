@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <string.h>
+#include <unistd.h>
 using namespace std;
 
 string Readaline(char* filename)
@@ -15,7 +16,12 @@ string Readaline(char* filename)
 };
 string K(int from,int to)
 {
-    string data = Readaline("data.txt");
+	      char buf[80];   
+      getcwd(buf,sizeof(buf));   
+      strcat(buf,"/Lib/K/data.txt");
+      // cout << buf << endl;
+      // printf("current working directory: %s\n", buf);   
+    string data = Readaline(buf);
     int len = data.length();
 	string sub;
 	try

@@ -40,7 +40,7 @@ public:
 				}
 			}
 		}
-		//GetMatrix(Matrix);
+		GetMatrix(Matrix);
 		return Matrix[m][n];
 	};
 	void GetMatrix(vector<vector <int> > Matrix){
