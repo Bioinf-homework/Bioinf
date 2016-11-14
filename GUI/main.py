@@ -27,8 +27,8 @@ class TestCB(wx.Choicebook):
             elif count == 3 or count == 4:
                 win = Panel3.Panel3(self)
             else:
-                win = wx.Panel(self)
-                st = wx.StaticText(win, -1, "Page: %d" % count, (10, 10))
+                win = DT.Panel4(self)
+                # st = wx.StaticText(win, -1, "Page: %d" % count, (10, 10))
             count += 1
 
             self.AddPage(win, txt)
