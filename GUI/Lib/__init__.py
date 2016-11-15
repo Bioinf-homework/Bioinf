@@ -1,1 +1,1 @@
-__all__ = ['K','Fasta','Panel3','DT']
+__all__ = ['K','Fasta','Editd','NWSW','DT']

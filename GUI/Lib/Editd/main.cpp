@@ -81,7 +81,7 @@ public:
 		{
 			for (int j = 0; j < Matrix[0].size(); j++)
 			{
-				file << Matrix[i][j];
+				file << Matrix[i][j] << "\t";
 			}
 			file << endl;
 		}
@@ -131,7 +131,7 @@ int main()
 	t = Readaline("t.txt");
 
 	Solution s1;
-	cout << s1.minDistance("AACDA","ADF")<<endl;
+	cout << s1.minDistance(s, t)<<endl;
 
 	// system("pause");
 	return 0;

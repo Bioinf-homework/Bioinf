@@ -24,29 +24,15 @@ class TestCB(wx.Choicebook):
                 win = K.Panel1(self)
             elif count == 2:
                 win = Fasta.Panel2(self)
-            elif count == 3 or count == 4:
-                win = Panel3.Panel3(self)
+            elif count == 3:
+                win = Editd.Panel3(self)
+            elif count == 4:
+                win = NWSW.Panel3(self)
             else:
                 win = DT.Panel4(self)
-                # st = wx.StaticText(win, -1, "Page: %d" % count, (10, 10))
             count += 1
 
             self.AddPage(win, txt)
-
-            # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGED, self.OnPageChanged)
-            # self.Bind(wx.EVT_CHOICEBOOK_PAGE_CHANGING, self.OnPageChanging)
-
-    def OnPageChanged(self, event):
-        old = event.GetOldSelection()
-        new = event.GetSelection()
-        sel = self.GetSelection()
-        event.Skip()
-
-    def OnPageChanging(self, event):
-        old = event.GetOldSelection()
-        new = event.GetSelection()
-        sel = self.GetSelection()
-        event.Skip()
 
 
 ########################################################################
