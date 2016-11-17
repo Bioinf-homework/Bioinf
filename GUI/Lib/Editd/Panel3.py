@@ -1,3 +1,4 @@
+# coding=utf-8
 #Boa:FramePanel:Panel3
 
 import wx
@@ -84,7 +85,11 @@ class Panel3(wx.Panel):
          os.popen(ddir+"/di")
          f = open(ddir+"/result.txt")
          data = f.read()
-         self.result_text.SetValue(data)
+         f = open(ddir+"/status.txt")
+         data2 = f.read()
+         f = open(ddir+"/path.txt")
+         data3 = f.read()
+         self.result_text.SetValue(data+"状态转移矩阵：\n"+data2+"\n路径：\n"+data3+"\n\n\n")
          pass
 
     def load(self,evt):
