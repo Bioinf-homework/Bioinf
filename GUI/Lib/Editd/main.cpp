@@ -115,6 +115,7 @@ public:
 	            {
 	                j-=1;
 	            }
+	            f   = Status[i][j];
 	            file << "(" << i << "," << j << ")" << "->";
 	            // file << "(" << i << "," << j << "):" << Matrix[i][j] << endl;
 	        }
