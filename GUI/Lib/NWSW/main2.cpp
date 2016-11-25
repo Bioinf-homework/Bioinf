@@ -18,7 +18,7 @@ public:
 
     int dnatoint( char a )
     {
-        // cout << a;
+        cout << a;
         /* return 0; */
         if ( a == 'A' )
             return(0);
@@ -87,7 +87,7 @@ public:
                  * x3 = 0;
                  * cout << x1;
                  */
-                // cout << i << "  " << j << x1 << "  " << x2 << "  " << x3 << " " << weigh << endl;
+                cout << i << "  " << j << x1 << "  " << x2 << "  " << x3 << " " << weigh << endl;
                 Matrix[i][j] = maxoflist( x1, x2, x3 );
 
 /*
@@ -96,7 +96,7 @@ public:
  */
             }
         }
-        PrintPath( Matrix, Status ,s ,t);
+        PrintPath( Matrix, Status );
         printM( Matrix, 1 );
         printM( Status, 3 );
     };
@@ -153,13 +153,13 @@ public:
  */
             }
         }
-        PrintPath( Matrix, Status ,s ,t);
+        PrintPath( Matrix, Status );
         printM( Matrix, 2 );
         printM( Status, 3 );
     };
 
 
-    void PrintPath( vector<vector <int> > Matrix, vector<vector <int> > Status ,string s , string t)
+    void PrintPath( vector<vector <int> > Matrix, vector<vector <int> > Status )
     {
         // printM( Status, 3 );
         char buf[MAX_SIZE];
@@ -187,10 +187,6 @@ public:
         int j   = Matrix[0].size() - 1;
         int f   = Status[Matrix.size() - 1][Matrix[0].size() - 1];
         /* hui(Matrix,Status,i,j); */
-        vector<int> s1;
-        vector<int> t1;
-        // s1.push_back(i);
-        // t1.push_back(j);
         file << "(" << i << "," << j << ")" << "->";
         while ( i != 0 && j != 0 )
         {
@@ -210,35 +206,7 @@ public:
             }
             f   = Status[i][j];
             file << "(" << i << "," << j << ")" << "->";
-             s1.push_back(i);
-             t1.push_back(j);
             /* file << "(" << i << "," << j << "):" << Matrix[i][j] << endl; */
-        }
-
-        for (int x = s1.size() - 2; x >= 0; --x)
-        {
-
-            if (Status[s1[x]][t1[x]] == 4 ||Status[s1[x]][t1[x]] == 5|| Status[s1[x]][t1[x]] == 6 || Status[s1[x]][t1[x]] == 7)
-            {
-                cout << s[t1[x]-1] << "XX";
-                cout << t[s1[x]-1] <<endl;
-            }         
-            if (Status[s1[x]][t1[x]] == 0)
-            {
-                cout << s[t1[x]-1] << "——";
-                cout << t[s1[x]-1] <<endl;
-            }            
-            if (Status[s1[x]][t1[x]]  == 2 || Status[s1[x]][t1[x]]  == 3)
-            {
-                cout << s[t1[x]-1] << "\t";
-                cout << " "<<endl;
-            }
-            if (Status[s1[x]][t1[x]]  == 1)
-            {
-                cout << "\t";
-                cout<< t[s1[x]-1] <<endl;
-            }
-
         }
         // file << "(0,0)";
     };
@@ -373,5 +341,3 @@ int main()
     /* Solution x("ATGCAGCTGCTT","CGTATAGCTACTG"); */
     return(0);
 }
-
-

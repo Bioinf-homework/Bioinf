@@ -105,7 +105,11 @@ class Panel3(wx.Panel):
          os.popen(ddir+"/nwsw")
          f = open(ddir+"/result.txt")
          data = f.read()
-         self.result_text.SetValue(data)
+         f = open(ddir+"/status.txt")
+         data2 = f.read()
+         f = open(ddir+"/path.txt")
+         data3 = f.read()
+         self.result_text.SetValue(data+"\n\n状态转移矩阵：\n"+data2+"\n路径：\n"+data3[:-2]+"\n\n\n")
          pass
 
 class DemoFrame(wx.Frame):
