@@ -89,7 +89,7 @@ class Panel3(wx.Panel):
          data2 = f.read()
          f = open(ddir+"/path.txt")
          data3 = f.read()
-         self.result_text.SetValue(data+"状态转移矩阵：\n"+data2+"\n路径：\n"+data3+"\n\n\n")
+         self.result_text.SetValue(data+"状态转移矩阵：\n"+data2+"\n路径：\n"+data3[:-2]+"\n\n\n")
          pass
 
     def load(self,evt):

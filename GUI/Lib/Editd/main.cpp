@@ -119,8 +119,6 @@ public:
 	            file << "(" << i << "," << j << ")" << "->";
 	            // file << "(" << i << "," << j << "):" << Matrix[i][j] << endl;
 	        }
-	        file << "(0,0)" ;
-
 	    };
 	void GetMatrix(vector<vector <int> > Matrix,int type){
 

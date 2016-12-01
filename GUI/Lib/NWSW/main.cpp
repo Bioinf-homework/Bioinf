@@ -18,7 +18,7 @@ public:
 
     int dnatoint( char a )
     {
-        cout << a;
+        // cout << a;
         /* return 0; */
         if ( a == 'A' )
             return(0);
@@ -47,7 +47,7 @@ public:
         for ( int i = 0; i <= n; i++ )
         {
             Matrix[0][i] = -2 * i;
-            Status[i][0] = 1;
+            Status[0][i] = 1;
         }
 
         /* printM(Matrix); */
@@ -65,6 +65,7 @@ public:
                  * cout << dnatoint(s[j-1]);
                  */
                 int weigh = DNAM[dnatoint( s[j - 1] )][dnatoint( t[i - 1] )];
+//                cout << weigh <<endl;
                 x3 = Matrix[i - 1][j - 1] + weigh;
                 if ( s[j - 1] == t[i - 1] )
                 {
@@ -83,20 +84,11 @@ public:
                         Status[i][j] += 4;
                     }
                 }
-                /*
-                 * x3 = 0;
-                 * cout << x1;
-                 */
-                cout << i << "  " << j << x1 << "  " << x2 << "  " << x3 << " " << weigh << endl;
-                Matrix[i][j] = maxoflist( x1, x2, x3 );
+               Matrix[i][j] = maxoflist( x1, x2, x3 );
 
-/*
- *                int index = maxoflist(0,x1,x2,x3);
- *                Status[i][j] = index;
- */
             }
         }
-        PrintPath( Matrix, Status );
+        PrintPath( Matrix, Status ,s ,t);
         printM( Matrix, 1 );
         printM( Status, 3 );
     };
@@ -119,16 +111,16 @@ public:
                 x1 = Matrix[i][j - 1] - 2;
                 /* cout << x1; */
                 x2 = Matrix[i - 1][j] - 2;
-                /*
-                 * cout << x2;
-                 * cout << dnatoint(s[j-1]);
-                 */
+
                 int weigh = DNAM[dnatoint( s[j - 1] )][dnatoint( t[i - 1] )];
                 x3 = Matrix[i - 1][j - 1] + weigh;
                 if ( s[j - 1] == t[i - 1] )
                 {
                     Status[i][j] = 0;
                 }else  {
+
+
+
                     if ( Matrix[i - 1][j] <= Matrix[i][j - 1] && Matrix[i - 1][j - 1] + weigh <= Matrix[i][j - 1] - 2 )
                     {
                         Status[i][j] += 1;
@@ -142,55 +134,81 @@ public:
                         Status[i][j] += 4;
                     }
                 }
-                /*
-                 * cout << x1;
-                 * cout << i <<"  "<< j << x1 << "  " <<x2<<"  " << x3<<endl;
-                 */
+
                 Matrix[i][j] = maxoflist( 0, x1, x2, x3 );
-/*
- *                int index = maxoflist(0,x1,x2,x3);
- *                Status[i][j] = index;
- */
+                if (Matrix[i][j] == 0)
+                {
+                    Status[i][j] = 8;
+                }
             }
         }
-        PrintPath( Matrix, Status );
+        PrintPath( Matrix, Status ,s ,t, 1);
         printM( Matrix, 2 );
         printM( Status, 3 );
     };
 
 
-    void PrintPath( vector<vector <int> > Matrix, vector<vector <int> > Status )
+    void PrintPath( vector<vector <int> > Matrix, vector<vector <int> > Status ,string s , string t, int state=0)
     {
-        // printM( Status, 3 );
         char buf[MAX_SIZE];
-        /* 获取当前程序绝对路径 */
-        int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
-        if ( cnt < 0 || cnt >= MAX_SIZE )
-        {
-            /* printf("***Error***\n"); */
-        }
-        /* 获取当前目录绝对路径，即去掉程序名 */
-        for ( int i = cnt; i >= 0; --i )
-        {
-            if ( buf[i] == '/' )
-            {
-                buf[i + 1] = '\0';
-                break;
-            }
-        }
-        /* printf("current absolute path:%s\n", buf); */
-        strcat( buf, "path.txt" );
+       /* 获取当前程序绝对路径 */
+       int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
+       if ( cnt < 0 || cnt >= MAX_SIZE )
+       {
+           /* printf("***Error***\n"); */
+       }
+
+       int i;
+       for ( i = cnt; i >= 0; --i )
+       {
+           if ( buf[i] == '/' )
+           {
+               buf[i + 1] = '\0';
+               break;
+           }
+       }
+       strcat( buf, "/path.txt" );
+
         ofstream file;
-        file.open( buf );
+        file.open(buf);
         file.clear();
-        int i   = Matrix.size() - 1;
+
+        i   = Matrix.size() - 1;
         int j   = Matrix[0].size() - 1;
         int f   = Status[Matrix.size() - 1][Matrix[0].size() - 1];
         /* hui(Matrix,Status,i,j); */
-        file << "(" << i << "," << j << ")" << "->";
+        if (state == 1)
+        {
+            int maxflag = -1000;
+            int tmpi,tmpj;
+            for ( int i = 0; i < Matrix.size(); i++ )
+            {
+                for ( int j = 0; j < Matrix[0].size(); j++ )
+                {
+//                    cout <<Matrix[i][j] << "\t";
+                    if ( Matrix[i][j] >= maxflag )
+                    {
+                        tmpi = i;
+                        tmpj = j;
+                        maxflag = Matrix[i][j];
+                    }
+                }
+            }
+            i = tmpi;
+            j = tmpj;
+            f   = Status[tmpi][tmpj];
+        }
+
+
+        vector<int> s1;
+        vector<int> t1;
+
         while ( i != 0 && j != 0 )
         {
-            cout << i << "," << j  << " " << f << endl;
+
+            file << "(" << i << "," << j << ")" << "->";
+             s1.push_back(i);
+             t1.push_back(j);
             if ( f == 4 || f == 0 || f == 7 || f == 6 || f == 5 )
             {
                 i   -= 1;
@@ -204,44 +222,98 @@ public:
             {
                 j -= 1;
             }
+            if ( f == 8 )
+            {
+                break;
+            }
             f   = Status[i][j];
-            file << "(" << i << "," << j << ")" << "->";
-            /* file << "(" << i << "," << j << "):" << Matrix[i][j] << endl; */
+
         }
-        // file << "(0,0)";
+
+        char buf2[MAX_SIZE];
+       /* 获取当前程序绝对路径 */
+       cnt = readlink( "/proc/self/exe", buf2, MAX_SIZE );
+       if ( cnt < 0 || cnt >= MAX_SIZE )
+       {
+           /* printf("***Error***\n"); */
+       }
+
+       for ( i = cnt; i >= 0; --i )
+       {
+           if ( buf2[i] == '/' )
+           {
+               buf2[i + 1] = '\0';
+               break;
+           }
+       }
+       strcat( buf2, "/show.txt" );
+
+        ofstream file2;
+        file2.open(buf2);
+        file2.clear();
+
+        for (int x = s1.size() - 1; x >= 0; --x)
+        {
+
+            if (Status[s1[x]][t1[x]] == 4 ||Status[s1[x]][t1[x]] == 5|| Status[s1[x]][t1[x]] == 6 || Status[s1[x]][t1[x]] == 7)
+            {
+                file2 << s[t1[x]-1] << "XX";
+                file2 << t[s1[x]-1] <<endl;
+            }
+            if (Status[s1[x]][t1[x]] == 0)
+            {
+                file2 << s[t1[x]-1] << "---";
+                file2 << t[s1[x]-1] <<endl;
+            }
+            if (Status[s1[x]][t1[x]]  == 2 || Status[s1[x]][t1[x]]  == 3)
+            {
+                file2 << "\t";
+                file2<< t[s1[x]-1] <<endl;
+            }
+            if (Status[s1[x]][t1[x]]  == 1)
+            {
+                file2 << s[t1[x]-1] << "\t";
+                file2 << " "<<endl;
+            }
+        }
+        file2.close();
     };
 
 
     void printM( vector< vector<int> > F, int type )
     {
-        char buf[MAX_SIZE];
-        /* 获取当前程序绝对路径 */
-        int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
-        if ( cnt < 0 || cnt >= MAX_SIZE )
-        {
-            /* printf("***Error***\n"); */
-        }
-        /* 获取当前目录绝对路径，即去掉程序名 */
-        int i;
-        for ( i = cnt; i >= 0; --i )
-        {
-            if ( buf[i] == '/' )
-            {
-                buf[i + 1] = '\0';
-                break;
-            }
-        }
+       char buf[MAX_SIZE];
+       /* 获取当前程序绝对路径 */
+       int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
+       if ( cnt < 0 || cnt >= MAX_SIZE )
+       {
+           /* printf("***Error***\n"); */
+       }
+       /* 获取当前目录绝对路径，即去掉程序名 */
+       int i;
+       for ( i = cnt; i >= 0; --i )
+       {
+           if ( buf[i] == '/' )
+           {
+               buf[i + 1] = '\0';
+               break;
+           }
+       }
         /* printf("current absolute path:%s\n", buf); */
+        ofstream file;
+
         if ( type != 3 )
         {
             /* code */
-            strcat( buf, "/result.txt" );
+           strcat( buf, "/result.txt" );
+            // file.open( "result.txt"  );
         }else  {
-            strcat( buf, "/status.txt" );
+           strcat( buf, "/status.txt" );
+            // file.open( "status.txt"  );
         }
         /* strcat(buf,"/result.txt"); */
-        ofstream file;
-        file.open( buf );
+
+       file.open( buf );
         file.clear();
 
         /* file << F[F.size()-1][F[0].size()-1] << endl; */
@@ -284,33 +356,31 @@ public:
 
 string Readaline( char* filename )
 {
-    char buf[MAX_SIZE];
-    /* 获取当前程序绝对路径 */
-    int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
-    if ( cnt < 0 || cnt >= MAX_SIZE )
-    {
-        /* printf("***Error***\n"); */
-    }
-    /* 获取当前目录绝对路径，即去掉程序名 */
-    int i;
-    for ( i = cnt; i >= 0; --i )
-    {
-        if ( buf[i] == '/' )
-        {
-            buf[i + 1] = '\0';
-            break;
-        }
-    }
-    /* printf("current absolute path:%s\n", buf); */
-    strcat( buf, filename );
-    /* cout << buf << endl; */
+   char buf[MAX_SIZE];
+   /* 获取当前程序绝对路径 */
+   int cnt = readlink( "/proc/self/exe", buf, MAX_SIZE );
+   if ( cnt < 0 || cnt >= MAX_SIZE )
+   {
+       /* printf("***Error***\n"); */
+   }
+
+   int i;
+   for ( i = cnt; i >= 0; --i )
+   {
+       if ( buf[i] == '/' )
+       {
+           buf[i + 1] = '\0';
+           break;
+       }
+   }
+   strcat( buf, filename );
 
     string      data;
     ifstream    rfp;
 
     rfp.open( buf );
     rfp >> data;
-    /* cout << data << endl; */
+
     rfp.close();
     return(data);
 };
@@ -323,13 +393,9 @@ int main()
     t   = Readaline( "t.txt" );
     c   = Readaline( "choice.txt" );
 
-    /* cout << c <<endl; */
 
     Solution x;
-    /* x.loadMM(); */
-    // cout << x.DNAM[0][0];
 
-    
     if ( c[0] == '1' )
     {
         x.NW( s, t );
@@ -337,8 +403,6 @@ int main()
         x.SW( s, t );
     }
 
-    // x.NW( s, t );
-    /* Solution x("ATGCAGCTGCTT","CGTATAGCTACTG"); */
     return(0);
 }
 

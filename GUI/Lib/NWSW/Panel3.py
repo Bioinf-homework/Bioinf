@@ -105,7 +105,10 @@ class Panel3(wx.Panel):
          os.popen(ddir+"/nwsw")
          f = open(ddir+"/result.txt")
          data = f.read()
-         self.result_text.SetValue(data)
+
+         f = open(ddir+"/show.txt")
+         data2 = f.read()
+         self.result_text.SetValue(data+"\n\n"+data2)
          pass
 
 class DemoFrame(wx.Frame):
