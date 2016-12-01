@@ -1,16 +1,22 @@
 SHEDSKIN_LIBDIR=/usr/share/shedskin/lib
 CC=g++
 CCFLAGS=-O2 -march=native -Wno-deprecated $(CPPFLAGS) -I. -I${SHEDSKIN_LIBDIR}
-LFLAGS=-lgc -lpcre $(LDFLAGS)
+LFLAGS=-lgc -lpcre $(LDFLAGS) -lutil
 
-CPPFILES=/home/tmn07/Project/Bioinf/DT/DT.cpp \
+CPPFILES=/home/tmn07/PythonProjects/Bioinf/DT/DT.cpp \
+	${SHEDSKIN_LIBDIR}/stat.cpp \
 	${SHEDSKIN_LIBDIR}/re.cpp \
+	${SHEDSKIN_LIBDIR}/os/path.cpp \
+	${SHEDSKIN_LIBDIR}/os/__init__.cpp \
 	${SHEDSKIN_LIBDIR}/math.cpp \
 	${SHEDSKIN_LIBDIR}/csv.cpp \
 	${SHEDSKIN_LIBDIR}/builtin.cpp
 
-HPPFILES=/home/tmn07/Project/Bioinf/DT/DT.hpp \
+HPPFILES=/home/tmn07/PythonProjects/Bioinf/DT/DT.hpp \
+	${SHEDSKIN_LIBDIR}/stat.hpp \
 	${SHEDSKIN_LIBDIR}/re.hpp \
+	${SHEDSKIN_LIBDIR}/os/path.hpp \
+	${SHEDSKIN_LIBDIR}/os/__init__.hpp \
 	${SHEDSKIN_LIBDIR}/math.hpp \
 	${SHEDSKIN_LIBDIR}/csv.hpp \
 	${SHEDSKIN_LIBDIR}/builtin.hpp

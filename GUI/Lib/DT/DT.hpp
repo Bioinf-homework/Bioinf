@@ -4,7 +4,7 @@
 using namespace __shedskin__;
 namespace __DT__ {
 
-extern str *const_0, *const_1, *const_2, *const_3, *const_4;
+extern str *const_0, *const_1, *const_2, *const_3, *const_4, *const_5;
 
 
 

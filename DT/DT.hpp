@@ -4,16 +4,16 @@
 using namespace __shedskin__;
 namespace __DT__ {
 
-extern str *const_0, *const_1, *const_2, *const_3, *const_4;
+extern str *const_0, *const_1, *const_2, *const_3, *const_4, *const_5;
 
 
 
 extern tuple2<list<list<str *> *> *, list<str *> *> *__49;
 extern pyiter<str *> *mytree;
 extern list<list<str *> *> *x;
+extern void *__file__, *ddir, *f;
 extern str *__name__;
 extern list<str *> *y;
-extern file *f;
 
 
 tuple2<list<list<str *> *> *, list<str *> *> *read_data();

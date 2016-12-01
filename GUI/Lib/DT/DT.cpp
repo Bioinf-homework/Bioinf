@@ -5,7 +5,7 @@
 
 namespace __DT__ {
 
-str *const_0, *const_1, *const_2, *const_3, *const_4;
+str *const_0, *const_1, *const_2, *const_3, *const_4, *const_5;
 
 using __math__::log;
 
@@ -114,6 +114,7 @@ double calcShannonEnt(list<list<str *> *> *dataSet) {
         labelCounts->__setitem__(currentLabel, (labelCounts->get(currentLabel, 0)+1));
     END_FOR
 
+    print2(NULL,0,1, labelCounts);
     shannonEnt = 0.0;
 
     FOR_IN(key,labelCounts,8,10,11)
@@ -194,7 +195,11 @@ __ss_int chooseBestFeatureToSplit(list<list<str *> *> *dataSet) {
     __ss_int __26, __27, __34, bestFeature, i, numFeatures;
 
     numFeatures = (len(dataSet->__getfast__(0))-1);
+    print2(NULL,0,1, ___box(numFeatures));
     baseEntropy = calcShannonEnt(dataSet);
+    print2(NULL,0,1, dataSet);
+    print2(NULL,1,1, const_3);
+    print2(NULL,0,1, ___box(baseEntropy));
     bestInfoGain = 0.0;
     bestFeature = (-1);
 
@@ -206,9 +211,11 @@ __ss_int chooseBestFeatureToSplit(list<list<str *> *> *dataSet) {
         FOR_IN(value,uniqueVals,32,34,35)
             subDataSet = splitDataSet(dataSet, i, value);
             prob = (len(subDataSet)/__float(len(dataSet)));
-            newEntropy = (prob*calcShannonEnt(subDataSet));
+            newEntropy = (newEntropy+(prob*calcShannonEnt(subDataSet)));
         END_FOR
 
+        print2(NULL,0,1, uniqueVals);
+        print2(NULL,0,1, ___box(newEntropy));
         infoGain = (baseEntropy-newEntropy);
         if ((infoGain>bestInfoGain)) {
             bestInfoGain = infoGain;
@@ -255,8 +262,9 @@ void __init() {
     const_0 = new str("data.csv");
     const_1 = new str("rb");
     const_2 = new str("");
-    const_3 = new str("re.txt");
-    const_4 = __char_cache[119];;
+    const_3 = new str("root=");
+    const_4 = new str("re.txt");
+    const_5 = __char_cache[119];;
 
     __name__ = new str("__main__");
 
@@ -264,7 +272,7 @@ void __init() {
     x = __49->__getfirst__();
     y = __49->__getsecond__();
     mytree = createTree(x, y);
-    WITH_VAR(open(const_3, const_4),f,1)
+    WITH_VAR(open(const_4, const_5),f,1)
         f->write(__str(mytree));
     END_WITH
 }

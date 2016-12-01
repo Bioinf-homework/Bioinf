@@ -1,20 +1,23 @@
 #include "builtin.hpp"
-#include "math.hpp"
+#include "os/__init__.hpp"
+#include "stat.hpp"
+#include "os/path.hpp"
 #include "csv.hpp"
+#include "math.hpp"
 #include "DT.hpp"
 
 namespace __DT__ {
 
-str *const_0, *const_1, *const_2, *const_3, *const_4;
+str *const_0, *const_1, *const_2, *const_3, *const_4, *const_5;
 
 using __math__::log;
 
 list<str *> *y;
-file *f;
+void *__file__, *ddir, *f;
 str *__name__;
-list<list<str *> *> *x;
-pyiter<str *> *mytree;
 tuple2<list<list<str *> *> *, list<str *> *> *__49;
+pyiter<str *> *mytree;
+list<list<str *> *> *x;
 
 
 static inline list<str *> *list_comp_0(__ss_int i, list<list<str *> *> *dataSet);
@@ -75,13 +78,13 @@ static inline list<str *> *list_comp_2(__ss_int bestFeat, list<list<str *> *> *d
 tuple2<list<list<str *> *> *, list<str *> *> *read_data() {
     list<str *> *labels, *line;
     __iter<list<str *> *> *__1;
-    file *myFile;
+    void *myFile;
     __csv__::reader *__0, *lines;
     __ss_int __2;
     list<list<str *> *> *data;
     __csv__::reader::for_in_loop __3;
 
-    WITH_VAR(open(const_0, const_1),myFile,0)
+    WITH_VAR(open((ddir)->__add__(const_0), const_1),myFile,0)
         lines = (new __csv__::reader(myFile, NULL, NULL, NULL, (-1), (-1), NULL, (-1), NULL, (-1)));
         labels = lines->next();
         data = (new list<list<str *> *>());
@@ -114,6 +117,7 @@ double calcShannonEnt(list<list<str *> *> *dataSet) {
         labelCounts->__setitem__(currentLabel, (labelCounts->get(currentLabel, 0)+1));
     END_FOR
 
+    print2(NULL,0,1, labelCounts);
     shannonEnt = 0.0;
 
     FOR_IN(key,labelCounts,8,10,11)
@@ -194,7 +198,11 @@ __ss_int chooseBestFeatureToSplit(list<list<str *> *> *dataSet) {
     __ss_int __26, __27, __34, bestFeature, i, numFeatures;
 
     numFeatures = (len(dataSet->__getfast__(0))-1);
+    print2(NULL,0,1, ___box(numFeatures));
     baseEntropy = calcShannonEnt(dataSet);
+    print2(NULL,0,1, dataSet);
+    print2(NULL,1,1, const_3);
+    print2(NULL,0,1, ___box(baseEntropy));
     bestInfoGain = 0.0;
     bestFeature = (-1);
 
@@ -206,9 +214,11 @@ __ss_int chooseBestFeatureToSplit(list<list<str *> *> *dataSet) {
         FOR_IN(value,uniqueVals,32,34,35)
             subDataSet = splitDataSet(dataSet, i, value);
             prob = (len(subDataSet)/__float(len(dataSet)));
-            newEntropy = (prob*calcShannonEnt(subDataSet));
+            newEntropy = (newEntropy+(prob*calcShannonEnt(subDataSet)));
         END_FOR
 
+        print2(NULL,0,1, uniqueVals);
+        print2(NULL,0,1, ___box(newEntropy));
         infoGain = (baseEntropy-newEntropy);
         if ((infoGain>bestInfoGain)) {
             bestInfoGain = infoGain;
@@ -252,20 +262,22 @@ pyiter<str *> *createTree(list<list<str *> *> *dataSet, list<str *> *labels) {
 }
 
 void __init() {
-    const_0 = new str("data.csv");
+    const_0 = new str("/data.csv");
     const_1 = new str("rb");
     const_2 = new str("");
-    const_3 = new str("re.txt");
-    const_4 = __char_cache[119];;
+    const_3 = new str("root=");
+    const_4 = new str("/re.txt");
+    const_5 = __char_cache[119];;
 
     __name__ = new str("__main__");
 
+    ddir = __os__::__path__::split(__os__::__path__::realpath(__file__))->__getfirst__();
     __49 = read_data();
     x = __49->__getfirst__();
     y = __49->__getsecond__();
     mytree = createTree(x, y);
-    WITH_VAR(open(const_3, const_4),f,1)
-        f->write(__str(mytree));
+    WITH_VAR(open((ddir)->__add__(const_4), const_5),f,1)
+        f->write();
     END_WITH
 }
 
@@ -275,5 +287,8 @@ int main(int, char **) {
     __shedskin__::__init();
     __math__::__init();
     __csv__::__init();
+    __stat__::__init();
+    __os__::__path__::__init();
+    __os__::__init();
     __shedskin__::__start(__DT__::__init);
 }
