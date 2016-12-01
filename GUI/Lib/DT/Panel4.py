@@ -17,16 +17,28 @@ class Panel4(wx.Panel):
 
 
         self.start_button = wx.Button(label=u'Start', name=u'start_button', parent=self,
-              pos=wx.Point(300, 300), size=wx.Size(75, 24), style=0)
+              pos=wx.Point(300, 100), size=wx.Size(75, 24), style=0)
 
         self.start_button.Bind(wx.EVT_BUTTON, self.start)
-    def start(self ,evt):
-        import drawtree
-        import json
-        with open(ddir+"/re.json") as f:
-            data = json.load(f)
-            drawtree.createPlot(data)
+        self.textCtrl1 = wx.TextCtrl(name='textCtrl1',
+                                     parent=self, pos=wx.Point(100, 200), size=wx.Size(504, 160),
+                                     style=wx.TE_MULTILINE, value=u'')
+        self.textCtrl1.SetFont(wx.Font(14, wx.SWISS, wx.NORMAL, wx.NORMAL,
+                                       False, u''))
 
+        self.draw_button = wx.Button(label=u'Draw', name=u'draw_button', parent=self,
+              pos=wx.Point(300, 150), size=wx.Size(75, 24), style=0)
+
+        self.draw_button.Bind(wx.EVT_BUTTON, self.draw)
+
+    def start(self ,evt):
+        os.popen(ddir+"/DT")
+        with open(ddir+"/re.txt") as f:
+            self.textCtrl1.SetValue(f.read())
+
+    def draw(self, evt):
+        import drawtree
+        drawtree.run()
 
 
 

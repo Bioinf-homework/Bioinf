@@ -1,4 +1,10 @@
 # coding=utf-8
+
+import os
+
+ddir = os.path.split(os.path.realpath(__file__))[0]
+
+
 # 得到叶子节点的数目
 def getNumLeafs(myTree):
     numLeafs = 0
@@ -30,8 +36,9 @@ def getTreeDepth(myTree):
 #函数retrieveTree输出预先存储的树信息
 #避免每次测试代码时都要从数据中创建树的麻烦
 def retrieveTree(i):
-    listOfTrees = []
-    listOfTrees.append({'age': {'<21': {'marriage': {'yes': {'sex': {'woman': 'C', 'man': 'B'}}, 'no': 'C'}}, '>21and<25': {'sex': {'woman': 'A', 'man': {'marriage': {'yes': 'B', 'no': 'C'}}}}, '>25': {'sex': {'woman': 'A', 'man': 'B'}}}})
+    with open(ddir+'/re.txt', 'r') as f:
+        data = f.read()
+    listOfTrees = [eval(data)]
     return listOfTrees[i]
 
 
@@ -46,19 +53,6 @@ def plotNode(nodeTxt, centerPt, parentPt, nodeType):
     createPlot.ax1.annotate(nodeTxt, xy=parentPt, xycoords='axes fraction',
                             xytext=centerPt, textcoords='axes fraction', va="center", ha="center", bbox=nodeType,
                             arrowprops=arrow_args)
-
-
-'''''
-def createPlot():
-    fig = plt.figure(1, facecolor='white')#创建一个新图形
-    fig.clf()#清空绘图区
-    createPlot.axl = plt.subplot(111,frameon=False)
-    #在图中绘制两个代表不同类型的树节点
-    plotNode('a decision node',(0.5,0.1),(0.1,0.5),decisionNode)
-    plotNode('a leaf node',(0.8,0.1),(0.3,0.8),leafNode)
-    plt.show()
-'''
-
 
 # 画二叉树，实现和上面代码相似的功能
 # 1、计算父节点和子节点的中间位置
@@ -104,12 +98,6 @@ def createPlot(inTree):
     plotTree(inTree, (0.5, 1.0), '')
     plt.show()
 
-
-# myTree=retrieveTree(0)
-# createPlot(myTree)
-
-if __name__ == '__main__':
-    import json
-    with open("re.json") as f:
-        data = json.load(f)
-        createPlot(data)
+def run():
+    myTree=retrieveTree(0)
+    createPlot(myTree)

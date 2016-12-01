@@ -1,0 +1,13 @@
+sex,year,married,type
+female,<21,no,C
+female,<21,yes,C
+male,<21,no,C
+male,<21,yes,B
+female,>=21 and <=25,no,A
+female,>=21 and <=25,yes,A
+male,>=21 and <=25,no,C
+male,>=21 and <=25,yes,B
+female,>25,no,A
+female,>25,yes,A
+male,>25,no,B
+male,>25,yes,B
