@@ -32,6 +32,8 @@ class Panel4(wx.Panel):
         self.draw_button.Bind(wx.EVT_BUTTON, self.draw)
 
     def start(self ,evt):
+        if __name__ != "__main__":
+            os.chdir("Lib/DT")
         os.popen(ddir+"/DT")
         with open(ddir+"/re.txt") as f:
             self.textCtrl1.SetValue(f.read())

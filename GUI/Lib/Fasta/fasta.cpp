@@ -5,7 +5,7 @@
 #include <vector>
 
 #include <unistd.h>
-#include <string.h> 　
+#include <string.h>
 #include <limits.h>
 
 #define MAX_SIZE (PATH_MAX+1)
@@ -311,4 +311,3 @@ int main()
 
 	return 0;
 }
-
