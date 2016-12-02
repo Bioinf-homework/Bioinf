@@ -2,12 +2,9 @@
 from math import log
 import csv
 # import json
-import os
-
-ddir = os.path.split(os.path.realpath(__file__))[0]
 
 def read_data():
-    with open(ddir+'/data.csv', 'rb') as myFile:
+    with open('data.csv', 'rb') as myFile:
         lines = csv.reader(myFile)
         labels = lines.next()
         data = []
@@ -22,12 +19,10 @@ def calcShannonEnt(dataSet):
     for featVec in dataSet:
         currentLabel = featVec[-1]
         labelCounts[currentLabel] = labelCounts.get(currentLabel, 0) + 1
-    print labelCounts
     shannonEnt = 0.0
     for key in labelCounts:
         prob = float(labelCounts[key]) / numEntries
         shannonEnt -= prob * log(prob, 2)  # 首先计算熵，它的作用是要用它计算每个特征的信息增益
-    # print shannonEnt
     return shannonEnt  # 熵越高混合的数据也越多
 
 
@@ -70,7 +65,6 @@ def majorityCnt(classList):
 # 选取特征，划分数据集，计算得出最好的划分数据集的特征
 def chooseBestFeatureToSplit(dataSet):
     numFeatures = len(dataSet[0]) - 1  # 剩下的是特征的个数
-    print numFeatures
     baseEntropy = calcShannonEnt(dataSet)  # 计算数据集的熵，放到baseEntropy中
     print "root:",
     print baseEntropy
@@ -124,6 +118,6 @@ x, y = read_data()
 
 
 mytree = createTree(x, y)
-with open(ddir+"/re.txt","w") as f:
+with open("re.txt","w") as f:
     f.write(str(mytree))
 # print(str(mytree))

@@ -114,7 +114,6 @@ double calcShannonEnt(list<list<str *> *> *dataSet) {
         labelCounts->__setitem__(currentLabel, (labelCounts->get(currentLabel, 0)+1));
     END_FOR
 
-    print2(NULL,0,1, labelCounts);
     shannonEnt = 0.0;
 
     FOR_IN(key,labelCounts,8,10,11)
@@ -195,9 +194,7 @@ __ss_int chooseBestFeatureToSplit(list<list<str *> *> *dataSet) {
     __ss_int __26, __27, __34, bestFeature, i, numFeatures;
 
     numFeatures = (len(dataSet->__getfast__(0))-1);
-    print2(NULL,0,1, ___box(numFeatures));
     baseEntropy = calcShannonEnt(dataSet);
-    print2(NULL,0,1, dataSet);
     print2(NULL,1,1, const_3);
     print2(NULL,0,1, ___box(baseEntropy));
     bestInfoGain = 0.0;
@@ -262,7 +259,7 @@ void __init() {
     const_0 = new str("data.csv");
     const_1 = new str("rb");
     const_2 = new str("");
-    const_3 = new str("root=");
+    const_3 = new str("root:");
     const_4 = new str("re.txt");
     const_5 = __char_cache[119];;
 

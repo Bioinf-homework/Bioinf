@@ -104,7 +104,7 @@ class Panel2(wx.Panel):
 
     def start(self, evt):
         import os
-        os.popen(ddir+"/fa")
+        os.popen(ddir+"/fa.exe")
         f = open(ddir+"/file.txt")
         re = f.read()
         self.t_input.SetValue(re)
